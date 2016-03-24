@@ -1,17 +1,14 @@
 <?php
 /**
  * Copyright (c) 2016-2016} Andreas Heigl<andreas@heigl.org>
- *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,34 +22,34 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT-License
  * @version   0.0
  * @since     24.03.2016
- * @link      http://github.com/heiglandreas/org.heigl.DateFormatter
+ * @link      http://github.com/heiglandreas/org.heigl.DateFormater
  */
 
-namespace Org_Heigl\DateFormatter\Formatter;
+namespace Org_Heigl\DateFormatterTest;
 
-class Pdf implements FormatterInterface
+use Org_Heigl\DateFormatter\Formatter\Cookie;
+
+class CookieTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * Formats the date according to the formatting string
-     *
      * @param \DateTimeInterface $date
+     * @param $expected
      *
-     * @return string
+     * @dataProvider formattingCookieDatesProvider
      */
-    public function format(\DateTimeInterface $date)
+    public function testThatFormattingCookieDatesWorks($date, $expected)
     {
-        if ($date->getOffset() == 0) {
-            return $date->format('YmdHis\Z');
-        }
-        return str_replace(':', '\'', $date->format('YmdHisP')) . '\'';
+        $formatter = new Cookie();
+        $this->assertEquals($expected, $formatter->format($date));
     }
 
-    /**
-     * @return string
-     */
-    public static function getFormatString()
+    public function formattingCookieDatesProvider()
     {
-        return 'PDF';
+        return [
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/Berlin')), 'Tuesday, 03-Dec-13 12:34:45 Europe/Berlin'],
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('UTC')), 'Tuesday, 03-Dec-13 12:34:45 UTC'],
+            [new \DateTime('2013-06-03 12:34:45', new \DateTimeZone('Europe/London')), 'Monday, 03-Jun-13 12:34:45 Europe/London'],
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/London')), 'Tuesday, 03-Dec-13 12:34:45 Europe/London'],
+        ];
     }
 }

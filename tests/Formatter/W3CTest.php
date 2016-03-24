@@ -1,17 +1,14 @@
 <?php
 /**
  * Copyright (c) 2016-2016} Andreas Heigl<andreas@heigl.org>
- *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,34 +22,35 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT-License
  * @version   0.0
  * @since     24.03.2016
- * @link      http://github.com/heiglandreas/org.heigl.DateFormatter
+ * @link      http://github.com/heiglandreas/org.heigl.DateFormater
  */
 
-namespace Org_Heigl\DateFormatter\Formatter;
+namespace Org_Heigl\DateFormatterTest;
 
-class Pdf implements FormatterInterface
+use Org_Heigl\DateFormatter\Formatter\W3C;
+
+class W3CTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * Formats the date according to the formatting string
-     *
      * @param \DateTimeInterface $date
+     * @param $expected
      *
-     * @return string
+     * @dataProvider formattingAtomDatesProvider
      */
-    public function format(\DateTimeInterface $date)
+    public function testThatFormattingW3CDatesWorks($date, $expected)
     {
-        if ($date->getOffset() == 0) {
-            return $date->format('YmdHis\Z');
-        }
-        return str_replace(':', '\'', $date->format('YmdHisP')) . '\'';
+        $formatter = new W3C();
+        $this->assertEquals($expected, $formatter->format($date));
     }
 
-    /**
-     * @return string
-     */
-    public static function getFormatString()
+    public function formattingAtomDatesProvider()
     {
-        return 'PDF';
+        return [
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/Berlin')), '2013-12-03T12:34:45+01:00'],
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('UTC')), '2013-12-03T12:34:45+00:00'],
+            [new \DateTime('2013-06-03 12:34:45', new \DateTimeZone('Europe/London')), '2013-06-03T12:34:45+01:00'],
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/London')), '2013-12-03T12:34:45+00:00'],
+
+        ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (c) 2016-2016} Andreas Heigl<andreas@heigl.org>
  *
@@ -30,29 +31,13 @@
 
 namespace Org_Heigl\DateFormatter\Formatter;
 
-class Pdf implements FormatterInterface
+class RSS extends RFC_1123
 {
-
-    /**
-     * Formats the date according to the formatting string
-     *
-     * @param \DateTimeInterface $date
-     *
-     * @return string
-     */
-    public function format(\DateTimeInterface $date)
-    {
-        if ($date->getOffset() == 0) {
-            return $date->format('YmdHis\Z');
-        }
-        return str_replace(':', '\'', $date->format('YmdHisP')) . '\'';
-    }
-
     /**
      * @return string
      */
     public static function getFormatString()
     {
-        return 'PDF';
+        return 'RSS';
     }
 }

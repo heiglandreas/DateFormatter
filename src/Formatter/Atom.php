@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (c) 2016-2016} Andreas Heigl<andreas@heigl.org>
  *
@@ -30,7 +31,7 @@
 
 namespace Org_Heigl\DateFormatter\Formatter;
 
-class Pdf implements FormatterInterface
+class Atom implements FormatterInterface
 {
 
     /**
@@ -42,10 +43,8 @@ class Pdf implements FormatterInterface
      */
     public function format(\DateTimeInterface $date)
     {
-        if ($date->getOffset() == 0) {
-            return $date->format('YmdHis\Z');
-        }
-        return str_replace(':', '\'', $date->format('YmdHisP')) . '\'';
+
+        return $date->format('Y\-m\-d\TH\:i\:sP');
     }
 
     /**
@@ -53,6 +52,6 @@ class Pdf implements FormatterInterface
      */
     public static function getFormatString()
     {
-        return 'PDF';
+        return 'ATOM';
     }
 }

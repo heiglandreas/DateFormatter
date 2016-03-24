@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (c) 2016-2016} Andreas Heigl<andreas@heigl.org>
  *
@@ -30,9 +31,8 @@
 
 namespace Org_Heigl\DateFormatter\Formatter;
 
-class Pdf implements FormatterInterface
+class Mysql extends Atom
 {
-
     /**
      * Formats the date according to the formatting string
      *
@@ -42,17 +42,13 @@ class Pdf implements FormatterInterface
      */
     public function format(\DateTimeInterface $date)
     {
-        if ($date->getOffset() == 0) {
-            return $date->format('YmdHis\Z');
-        }
-        return str_replace(':', '\'', $date->format('YmdHisP')) . '\'';
+        return $date->format('Y\-m\-d\ H\:i\:sP');
     }
-
     /**
      * @return string
      */
     public static function getFormatString()
     {
-        return 'PDF';
+        return 'MYSQL';
     }
 }
