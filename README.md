@@ -35,8 +35,8 @@ Currently the following formatters are available:
 ## Extending
 
 You can add your own formatter by creating a class that implements the
-```Org_Heigl\DateFormatter\Formatter\FormatterInterface```.
-This class can then either be used directly like in this example:
+```Org_Heigl\DateFormatter\Formatter\FormatterInterface```. This class 
+can then either be used directly like in this example:
 
 ```php
 use Org_Heigl\DateFormatter\DateFormatter as Formatter;
