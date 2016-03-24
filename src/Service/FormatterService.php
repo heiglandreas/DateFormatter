@@ -39,12 +39,16 @@ class FormatterService
 {
     protected static $list;
 
+    protected static $formatterDirectories = [
+        __DIR__ . '/../../Formatter/',
+    ];
+
     protected static function getList()
     {
         if (! self::$list) {
             $finder = new FileFinder();
             $finder->addFilter(new ClassIsInstanceof(['\Org_Heigl\DateFormater\FormaterInterface']));
-            foreach (self::formatterDirectories as $directory) {
+            foreach (self::$formatterDirectories as $directory) {
                 $finder->addDirectory($directory);
             }
             self::$list = $finder->find();
@@ -65,4 +69,21 @@ class FormatterService
 
         throw new UnknownFormatException('There is no formater for this format');
     }
+
+    /**
+     * @param string $folder
+     *
+     * @return void
+     */
+    public static function addFormatterFolder($folder)
+    {
+        if (! is_dir($folder)) {
+            return;
+        }
+
+        array_unshift(self::$formatterDirectories, $folder);
+        unset(self::$list);
+    }
+
+
 }
