@@ -32,7 +32,8 @@
 namespace Org_Heigl\DateFormatter\Service;
 
 use Org_Heigl\DateFormatter\UnknownFormatException;
-use Org_Heigl\FileFinder;
+use Org_Heigl\FileFinder\ClassMapList;
+use Org_Heigl\FileFinder\FileFinder;
 use Org_Heigl\FileFinder\Filter\ClassIsInstanceof;
 
 class FormatterService
@@ -40,14 +41,15 @@ class FormatterService
     protected static $list;
 
     protected static $formatterDirectories = [
-        __DIR__ . '/../../Formatter/',
+        __DIR__ . '/../Formatter/',
     ];
 
     protected static function getList()
     {
         if (! self::$list) {
             $finder = new FileFinder();
-            $finder->addFilter(new ClassIsInstanceof(['\Org_Heigl\DateFormater\FormaterInterface']));
+            $finder->addFilter(new ClassIsInstanceof(['Org_Heigl\DateFormatter\Formatter\FormatterInterface']));
+            $finder->setFileList(new ClassMapList());
             foreach (self::$formatterDirectories as $directory) {
                 $finder->addDirectory($directory);
             }
@@ -82,7 +84,7 @@ class FormatterService
         }
 
         array_unshift(self::$formatterDirectories, $folder);
-        unset(self::$list);
+        self::$list = null;
     }
 
 
