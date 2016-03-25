@@ -1,5 +1,9 @@
 # DateFormatter
 
+[![Build Status](https://travis-ci.org/heiglandreas/DateFormatter.svg?branch=master)](https://travis-ci.org/heiglandreas/DateFormatter)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/heiglandreas/DateFormatter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/heiglandreas/DateFormatter/?branch=master)
+
+
 Extendable Library to format DateTimes using Zend-Frameworks Date-Constants
 
 ## Installation
