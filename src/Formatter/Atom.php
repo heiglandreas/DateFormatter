@@ -39,7 +39,7 @@ class Atom implements FormatterInterface
      *
      * @param \DateTimeInterface $date
      *
-     * @return string[]
+     * @return string
      */
     public function format(\DateTimeInterface $date)
     {
@@ -48,7 +48,7 @@ class Atom implements FormatterInterface
     }
 
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString()
     {
