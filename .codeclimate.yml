@@ -11,6 +11,9 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    exclude_fincgerprints:
+    - ffaa54050ba4a006db736e9d573a70ab
+    - 29b704fcd402c68d8eaf0576277eaaf6
 ratings:
   paths:
   - "**.inc"
