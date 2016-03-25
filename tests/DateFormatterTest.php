@@ -25,39 +25,49 @@
  * @copyright 2016-2016 Andreas Heigl
  * @license   http://www.opensource.org/licenses/mit-license.php MIT-License
  * @version   0.0
- * @since     24.03.2016
- * @link      http://github.com/heiglandreas/org.heigl.DateFormater
+ * @since     25.03.2016
+ * @link      http://github.com/heiglandreas/org.heigl.DateFormatter
  */
 
-namespace Org_Heigl\DateFormatter;
+namespace Org_HeiglTest\DateFormatter;
 
-use Org_Heigl\DateFormatter\Formatter\FormatterInterface;
-use Org_Heigl\DateFormatter\Service\FormatterService;
+use Org_Heigl\DateFormatter\DateFormatter;
 
-class DateFormatter
+class DateFormatterTest extends \PHPUnit_Framework_TestCase
 {
-    protected $formatter = null;
-
-    /**
-     * DateFormatter constructor.
-     *
-     * @param string $format
-     */
-    public function __construct($format)
+    public function testThatFormattingWithAFormatterWorks()
     {
-        if (! $format instanceof FormatterInterface) {
-            $format = FormatterService::getFormatter($format);
-        }
-        $this->formatter = $format;
+        $date = new \DateTime('2013-12-03 12:23:34+01:00');
+        $mock = $this->getMockBuilder('Org_Heigl\DateFormatter\Formatter\FormatterInterface')
+            ->setMethods(['format', 'getFormatString'])
+            ->getMock();
+
+        $mock->expects($this->once())
+            ->method('format')
+            ->with($this->equalTo($date))
+            ->will($this->returnValue('foo'))
+        ;
+
+        $formatter = new DateFormatter($mock);
+        $this->assertAttributeEquals($mock, 'formatter', $formatter);
+        $this->assertEquals('foo', $formatter->format($date));
+    }
+
+    public function testThatAddingAFormatterStringAddsTheFormatter()
+    {
+        $formatter = new DateFormatter('Atom');
+        $this->assertAttributeInstanceOf(
+            'Org_Heigl\DateFormatter\Formatter\Atom',
+            'formatter',
+            $formatter
+        );
     }
 
     /**
-     * @param \DateTimeInterface $date
-     *
-     * @return string
+     * @expectedException Org_Heigl\DateFormatter\UnknownFormatException
      */
-    public function format(\DateTimeInterface $date)
+    public function testThatTryingToSetInvalidFormatterResultsInAnException()
     {
-        return $this->formatter->format($date);
+        $formatter = new DateFormatter('NotExistingFormatter');
     }
 }

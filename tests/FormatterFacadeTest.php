@@ -25,39 +25,29 @@
  * @copyright 2016-2016 Andreas Heigl
  * @license   http://www.opensource.org/licenses/mit-license.php MIT-License
  * @version   0.0
- * @since     24.03.2016
- * @link      http://github.com/heiglandreas/org.heigl.DateFormater
+ * @since     25.03.2016
+ * @link      http://github.com/heiglandreas/org.heigl.DateFormatter
  */
 
-namespace Org_Heigl\DateFormatter;
+namespace Org_HeiglTest\DateFormatter;
 
-use Org_Heigl\DateFormatter\Formatter\FormatterInterface;
-use Org_Heigl\DateFormatter\Service\FormatterService;
+use Org_Heigl\DateFormatter\FormatterFacade;
 
-class DateFormatter
+class FormatterFacadeTest extends \PHPUnit_Framework_TestCase
 {
-    protected $formatter = null;
-
-    /**
-     * DateFormatter constructor.
-     *
-     * @param string $format
-     */
-    public function __construct($format)
+    public function testThatCallingFacadeResultsInFormattedString()
     {
-        if (! $format instanceof FormatterInterface) {
-            $format = FormatterService::getFormatter($format);
-        }
-        $this->formatter = $format;
-    }
+        $date = new \DateTime('2013-12-03 12:23:34+01:00');
+        $mock = $this->getMockBuilder('Org_Heigl\DateFormatter\Formatter\FormatterInterface')
+                     ->setMethods(['format', 'getFormatString'])
+                     ->getMock();
 
-    /**
-     * @param \DateTimeInterface $date
-     *
-     * @return string
-     */
-    public function format(\DateTimeInterface $date)
-    {
-        return $this->formatter->format($date);
+        $mock->expects($this->once())
+             ->method('format')
+             ->with($this->equalTo($date))
+             ->will($this->returnValue('foo'));
+
+        $this->assertEquals('foo', FormatterFacade::format($date, $mock));
+
     }
 }

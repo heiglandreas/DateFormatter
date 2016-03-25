@@ -31,11 +31,13 @@
 
 namespace Org_Heigl\DateFormatter;
 
+use Org_Heigl\DateFormatter\Formatter\FormatterInterface;
+
 class FormatterFacade
 {
     /**
-     * @param \DateTimeInterface $date
-     * @param string             $formatString
+     * @param \DateTimeInterface        $date
+     * @param string|FormatterInterface $formatString
      *
      * @return string
      */
