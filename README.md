@@ -1,6 +1,8 @@
 # DateFormatter
 
 [![Build Status](https://travis-ci.org/heiglandreas/DateFormatter.svg?branch=master)](https://travis-ci.org/heiglandreas/DateFormatter)
+[![Code Climate](https://codeclimate.com/github/heiglandreas/DateFormatter/badges/gpa.svg)](https://codeclimate.com/github/heiglandreas/DateFormatter)
+[![Test Coverage](https://codeclimate.com/github/heiglandreas/DateFormatter/badges/coverage.svg)](https://codeclimate.com/github/heiglandreas/DateFormatter/coverage)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/heiglandreas/DateFormatter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/heiglandreas/DateFormatter/?branch=master)
 
 
