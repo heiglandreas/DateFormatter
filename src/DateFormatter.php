@@ -41,7 +41,7 @@ class DateFormatter
     /**
      * DateFormatter constructor.
      *
-     * @param string $format
+     * @param FormatterInterface|string $format
      */
     public function __construct($format)
     {
