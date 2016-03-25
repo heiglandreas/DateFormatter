@@ -1,7 +1,7 @@
 {
     "name": "org_heigl/date-formatter",
     "description": "Extendable Library to format DateTimes using Zend-Frameworks Date-Constants",
-    "tags": ["date","datetime","format"],
+    "keywords": ["date","datetime","format"],
     "type": "library",
     "require-dev": {
         "phpunit/phpunit": "^5.2"
