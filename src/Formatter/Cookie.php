@@ -47,10 +47,10 @@ class Cookie implements FormatterInterface
     }
 
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString()
     {
-        return 'COOKIE';
+        return ['COOKIE'];
     }
 }

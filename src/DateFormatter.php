@@ -37,6 +37,11 @@ class DateFormatter
 {
     protected $formater = null;
 
+    /**
+     * DateFormatter constructor.
+     *
+     * @param string $format
+     */
     public function __construct($format)
     {
         if (! $format instanceof FormatterInterface) {
@@ -45,6 +50,11 @@ class DateFormatter
         $this->formater = $format;
     }
 
+    /**
+     * @param \DateTimeInterface $date
+     *
+     * @return string
+     */
     public function format(\DateTimeInterface $date)
     {
         return $this->formater->format($date);

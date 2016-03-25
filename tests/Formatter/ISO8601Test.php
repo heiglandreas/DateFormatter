@@ -27,9 +27,9 @@
 
 namespace Org_Heigl\DateFormatterTest;
 
-use Org_Heigl\DateFormatter\Formatter\ISO_8601;
+use Org_Heigl\DateFormatter\Formatter\Iso8601;
 
-class ISO_8601Test extends \PHPUnit_Framework_TestCase
+class Iso8601Test extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param \DateTimeInterface $date
@@ -37,9 +37,9 @@ class ISO_8601Test extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider formattingAtomDatesProvider
      */
-    public function testThatFormattingPdfDatesWorks($date, $expected)
+    public function testThatFormattingIso8601DatesWorks($date, $expected)
     {
-        $formatter = new ISO_8601();
+        $formatter = new Iso8601();
         $this->assertEquals($expected, $formatter->format($date));
     }
 

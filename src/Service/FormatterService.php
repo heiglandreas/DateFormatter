@@ -44,6 +44,9 @@ class FormatterService
         __DIR__ . '/../Formatter/',
     ];
 
+    /**
+     * @return \Org_Heigl\FileFinder\FileListInterface
+     */
     protected static function getList()
     {
         if (! self::$list) {
@@ -59,10 +62,15 @@ class FormatterService
         return self::$list;
     }
 
+    /**
+     * @param string $format
+     *
+     * @return Org_Heigl\DateFormatter\Formatter\FormatterInterface
+     */
     public static function getFormatter($format)
     {
         foreach (self::getList() as $class => $path) {
-            if ($class::getFormatString() != $format) {
+            if (! in_array(strtolower($format), array_map('strtolower', $class::getFormatString()))) {
                 continue;
             }
 

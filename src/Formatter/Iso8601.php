@@ -31,9 +31,8 @@
 
 namespace Org_Heigl\DateFormatter\Formatter;
 
-class RFC_1123 implements FormatterInterface
+class Iso8601 extends Atom
 {
-
     /**
      * Formats the date according to the formatting string
      *
@@ -43,14 +42,13 @@ class RFC_1123 implements FormatterInterface
      */
     public function format(\DateTimeInterface $date)
     {
-        return $date->format('D\, d M Y H\:i\:s O');
+        return $date->format('Y\-m\-d\TH\:i\:sP');
     }
-
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString()
     {
-        return 'RFC_1123';
+        return ['Iso8601','ISO_8601', 'ISO-8601'];
     }
 }

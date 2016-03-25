@@ -27,29 +27,29 @@
 
 namespace Org_Heigl\DateFormatterTest;
 
-use Org_Heigl\DateFormatter\Formatter\RFC_1036;
+use Org_Heigl\DateFormatter\Formatter\Rfc3339;
 
-class RFC_1036Test extends \PHPUnit_Framework_TestCase
+class Rfc3339Test extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param \DateTimeInterface $date
      * @param $expected
      *
-     * @dataProvider formattingRFC_822DatesProvider
+     * @dataProvider formattingRfc3339DatesProvider
      */
-    public function testThatFormattingRFC_1036DatesWorks($date, $expected)
+    public function testThatFormattingPdfDatesWorks($date, $expected)
     {
-        $formatter = new RFC_1036();
+        $formatter = new Rfc3339();
         $this->assertEquals($expected, $formatter->format($date));
     }
 
-    public function formattingRFC_822DatesProvider()
+    public function formattingRfc3339DatesProvider()
     {
         return [
-            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/Berlin')), 'Tue, 03 Dec 13 12:34:45 +0100'],
-            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('UTC')), 'Tue, 03 Dec 13 12:34:45 +0000'],
-            [new \DateTime('2013-06-03 12:34:45', new \DateTimeZone('Europe/London')), 'Mon, 03 Jun 13 12:34:45 +0100'],
-            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/London')), 'Tue, 03 Dec 13 12:34:45 +0000'],
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/Berlin')), '2013-12-03T12:34:45+01:00'],
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('UTC')), '2013-12-03T12:34:45+00:00'],
+            [new \DateTime('2013-06-03 12:34:45', new \DateTimeZone('Europe/London')), '2013-06-03T12:34:45+01:00'],
+            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/London')), '2013-12-03T12:34:45+00:00'],
 
         ];
     }

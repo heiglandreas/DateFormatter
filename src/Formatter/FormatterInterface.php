@@ -43,7 +43,7 @@ Interface FormatterInterface
     public function format(\DateTimeInterface $date);
 
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString();
 }

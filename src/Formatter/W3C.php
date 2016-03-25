@@ -35,10 +35,10 @@ class W3C extends Atom
 {
 
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString()
     {
-        return 'W3C';
+        return ['W3C'];
     }
 }

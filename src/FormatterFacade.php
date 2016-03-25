@@ -33,6 +33,12 @@ namespace Org_Heigl\DateFormatter;
 
 class FormatterFacade
 {
+    /**
+     * @param \DateTimeInterface $date
+     * @param string             $formatString
+     *
+     * @return string
+     */
     public static function format(\DateTimeInterface $date, $formatString)
     {
         $formater = new DateFormatter($formatString);

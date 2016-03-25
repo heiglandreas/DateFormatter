@@ -1,14 +1,17 @@
 <?php
 /**
  * Copyright (c) 2016-2016} Andreas Heigl<andreas@heigl.org>
+
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
+
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
+
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,35 +25,18 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT-License
  * @version   0.0
  * @since     24.03.2016
- * @link      http://github.com/heiglandreas/org.heigl.DateFormater
+ * @link      http://github.com/heiglandreas/org.heigl.DateFormatter
  */
 
-namespace Org_Heigl\DateFormatterTest;
+namespace Org_Heigl\DateFormatter\Formatter;
 
-use Org_Heigl\DateFormatter\Formatter\RFC_1123;
-
-class RFC_1123Test extends \PHPUnit_Framework_TestCase
+class Rfc1036 extends Rfc822
 {
     /**
-     * @param \DateTimeInterface $date
-     * @param $expected
-     *
-     * @dataProvider formattingRFC_1123DatesProvider
+     * @return string[]
      */
-    public function testThatFormattingRFC_1123DatesWorks($date, $expected)
+    public static function getFormatString()
     {
-        $formatter = new RFC_1123();
-        $this->assertEquals($expected, $formatter->format($date));
-    }
-
-    public function formattingRFC_1123DatesProvider()
-    {
-        return [
-            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/Berlin')), 'Tue, 03 Dec 2013 12:34:45 +0100'],
-            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('UTC')), 'Tue, 03 Dec 2013 12:34:45 +0000'],
-            [new \DateTime('2013-06-03 12:34:45', new \DateTimeZone('Europe/London')), 'Mon, 03 Jun 2013 12:34:45 +0100'],
-            [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/London')), 'Tue, 03 Dec 2013 12:34:45 +0000'],
-
-        ];
+        return ['Rfc1036', 'RFC_1036', 'RFC-1036'];
     }
 }

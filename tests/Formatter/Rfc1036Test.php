@@ -27,23 +27,23 @@
 
 namespace Org_Heigl\DateFormatterTest;
 
-use Org_Heigl\DateFormatter\Formatter\RFC_822;
+use Org_Heigl\DateFormatter\Formatter\Rfc1036;
 
-class RFC_822Test extends \PHPUnit_Framework_TestCase
+class Rfc1036Test extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param \DateTimeInterface $date
      * @param $expected
      *
-     * @dataProvider formattingRFC_822DatesProvider
+     * @dataProvider formattingRfc1036DatesProvider
      */
-    public function testThatFormattingRFC_822DatesWorks($date, $expected)
+    public function testThatFormattingRfc1036DatesWorks($date, $expected)
     {
-        $formatter = new RFC_822();
+        $formatter = new Rfc1036();
         $this->assertEquals($expected, $formatter->format($date));
     }
 
-    public function formattingRFC_822DatesProvider()
+    public function formattingRfc1036DatesProvider()
     {
         return [
             [new \DateTime('2013-12-03 12:34:45', new \DateTimeZone('Europe/Berlin')), 'Tue, 03 Dec 13 12:34:45 +0100'],

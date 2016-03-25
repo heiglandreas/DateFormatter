@@ -45,10 +45,10 @@ class Mysql extends Atom
         return $date->format('Y\-m\-d\ H\:i\:sP');
     }
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString()
     {
-        return 'MYSQL';
+        return ['MYSQL'];
     }
 }

@@ -31,13 +31,13 @@
 
 namespace Org_Heigl\DateFormatter\Formatter;
 
-class RSS extends RFC_1123
+class RSS extends Rfc1123
 {
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString()
     {
-        return 'RSS';
+        return ['RSS'];
     }
 }

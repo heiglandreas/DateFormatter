@@ -52,6 +52,6 @@ class Atom implements FormatterInterface
      */
     public static function getFormatString()
     {
-        return 'ATOM';
+        return ['ATOM'];
     }
 }

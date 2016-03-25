@@ -49,10 +49,10 @@ class Pdf implements FormatterInterface
     }
 
     /**
-     * @return string
+     * @return string[]
      */
     public static function getFormatString()
     {
-        return 'PDF';
+        return ['PDF'];
     }
 }
