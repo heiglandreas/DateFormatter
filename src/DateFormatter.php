@@ -31,6 +31,8 @@
 
 namespace Org_Heigl\DateFormatter;
 
+use Org_Heigl\DateFormatter\Formatter\FormatterInterface;
+
 class DateFormatter
 {
     protected $formater = null;

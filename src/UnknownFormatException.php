@@ -32,4 +32,6 @@
 namespace Org_Heigl\DateFormatter;
 
 class UnknownFormatException extends \UnexpectedValueException
-{}
+{
+    // 
+}
