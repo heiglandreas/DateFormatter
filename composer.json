@@ -4,7 +4,8 @@
     "keywords": ["date","datetime","format"],
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^5.2"
+        "phpunit/phpunit": "^4.5 || ^5.3",
+        "fabpot/php-cs-fixer": "^1.11"
     },
     "license": "MIT",
     "authors": [
@@ -14,7 +15,11 @@
         }
     ],
     "require": {
-        "org_heigl/filefinder": "^1.0"
+        "org_heigl/filefinder": "^1.1",
+        "php": "^5.6 || ^7.0"
+    },
+    "suggest" : {
+        "org_heigl/date-formatter-i18n" : "Provides additional date formatting with i18n functionality. Intl-Package required"
     },
     "autoload": {
         "psr-4" : {
@@ -25,5 +30,11 @@
         "psr-4" : {
             "Org_Heigl\\DateFormatterTest\\" : "tests"
         }
+    },
+    "scripts" : {
+        "upload-coverage": "coveralls -v",
+        "test-coverage" : "phpunit -c phpunit.travis.xml --coverage-clover clover.xml ",
+        "test" : "phpunit -c phpunit.travis.xml",
+        "cs-check" : "php-cs-fixer --version && php-cs-fixer fix -v --diff --dry-run"
     }
 }

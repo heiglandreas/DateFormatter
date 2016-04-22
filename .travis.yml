@@ -1,26 +1,67 @@
 language: php
 
-php:
- - 5.6
- - 7.0
- - hhvm
- - nightly
-
-script:
- - ./vendor/bin/phpunit --configuration=phpunit.travis.xml
+env:
+  global:
+    - COMPOSER_ARGS="--no-interaction --ignore-platform-reqs"
 
 matrix:
+ fast_finish: true
+ include:
+   - php: 5.6
+     env:
+       - DEPS=lowest
+   - php: 5.6
+     env:
+       - DEPS=locked
+       - TEST_COVERAGE=true
+       - CHECK_CS=true
+   - php: 5.6
+     env:
+       - DEPS=latest
+   - php: 7
+     env:
+       - DEPS=lowest
+   - php: 7
+     env:
+       - DEPS=locked
+   - php: 7
+     env:
+       - DEPS=latest
+   - php: hhvm
+     env:
+       - DEPS=lowest
+   - php: hhvm
+     env:
+       - DEPS=locked
+   - php: hhvm
+     env:
+       - DEPS=latest
  allow_failures:
-  - php: nightly
+   - php: hhvm
+
+
+script:
+ - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; fi
+ - if [[ $TEST_COVERAGE != 'true' ]]; then composer test ; fi
+ - if [[ $CHECK_CS == 'true' ]]; then composer cs-check ; fi
+
+
+before_install:
+  - travis_retry composer self-update
+  - if [[ $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
+
+install:
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require $COMPOSER_ARGS --dev satooshi/php-coveralls ; fi
+  - travis_retry composer install $COMPOSER_ARGS
+  - composer show --installed
+
+
 addons:
  code_climate:
   repo_token:
     secure: "GFM70GBUuDZ3KUwqgPwXTFdXm6c/4SWF/vNC99YpmENF6Lq6dFez9zeh+kVViFAzjgFIueW1TAsSnJSYCdS3Reka9jN8NXSExFAR0MW/zxLdfpaefZxxvTwy1QwFQO+WxSDTdcFFpJAvR5xVClz7Wnm/mLEhSqpKV1veBy1fxUTeoVd6StUYkFeJgWMzAQqMjQlrgpEISgbTidZIflVbkmZ46sTj/RhOfaSOPK/CMSRl0YNW58yngnM4aH/MmwnPj2oacDLAwqyaTJxD2VGTvYtrefQ+riB9nnukgNNFWwCFhrFtf4U4o6sAR1bdWVre4lWuyhiDc3eO9u8tMIvftf7mKAjYwEf8AwKQ8jXzRIUiAJSDu3hKzBDRINnIDGrlTlKkhKRVSFr9y8krfhHDUhehRoGSBk5FGRHZ78OYUY1SbLNyzM17CocfyvMkJCBmkkjKl62V8gkXzae/xbqZ0TSQn4JBPt+9AXf377XE22ZVeBwDiy+qT2NYG64gU/xzEhWUlegqd+8/xLvaDtvd+vjyOBhWGCrbYpUjj9OrmTfCCMbJa5Rew+sy9k/DTQiSj5RHeSkZqUJrcNJDKkyP/OftMMmj+L8GsYW3AmI4McWr97e1JD71RtoS72SyKqYvnguIHxB3lPFNikxZhY8ypd2EeiOHosgo1NAseE9Dtlc="
 
-before_script:
- - ./.travis.install.sh
-
 after_script:
- - ./vendor/bin/test-reporter
- - wget https://scrutinizer-ci.com/ocular.phar
- - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+ - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer upload-coverage; wget https://scrutinizer-ci.com/ocular.phar; php ocular.phar code-coverage:upload --format=php-clover clover.xml; fi
